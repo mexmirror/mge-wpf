@@ -1,5 +1,6 @@
 #MGE WPF
 [![PDF Status](https://www.sharelatex.com/github/repos/mexmirror/mge-wpf/builds/latest/badge.svg)](https://www.sharelatex.com/github/repos/mexmirror/mge-wpf/builds/latest/output.pdf)
+
 Summary of the WPF part of the MGE lecutre at the University Of Applied Science Rapperswil
 
 ## Compiling
