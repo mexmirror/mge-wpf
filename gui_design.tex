@@ -1,0 +1,31 @@
+\section{GUI Design}
+\subsection{WPF Ressourcen}
+Mit WPF Ressourcen kann man nützliche Objekte (Brushes, Styles, Templates etc.) zentral definieren und wiederverwenden.
+\subsection{Resources}
+\paragraph{Physikalische Ressourcen} In den File Properties kann man eine Datei als WPF-Ressource deklarieren welche dann in die Binärdatei einkompiliert werden. Zugegriffen kann dann mittels Resource-Key (relativer Pfadname).
+\paragraph{Resource} Jedes beliebige Objekt in XAML kann als Ressource definiert werden. Es bird mit einem Key-Attribut und dem x-Namespace benannt.
+\begin{lstlisting}[language=xml]
+<Application.Resources>
+    <SolidColorBrush x:Key ="MyButtonBackground" Color="#EEEEEE" />
+</Application.Resources>
+\end{lstlisting}
+Unter diesem Key sind Ressourcen dann auch ansprechbar
+\begin{lstlisting}[language=xml]
+<Button Background="{StaticResource MyButtonBackground}" Content="Save" />
+\end{lstlisting}
+\paragraph{ResourceDictionary} Ist ein Behälter um Ressourcen zu speichern. Es indexiert nach dem Ressourcen-Namen (\verb+x:Key+) und kann in allen Elementen, welche von FrameworkElement ableiten, verwendet werden. Wenn auf eine Ressource zugegriffen werden möchte, wird \begin{enumerate*}[label=\itshape \arabic*\upshape.]\item Key im Element und allen Parent-Nodes gesucht (Logical Tree), \item dann wird der Key in \verb+Application.Resources+ gesucht, \item als letztes wird in System-Ressourcen gesucht.\end{enumerate*}. Die Reheinfolge im XAML-Code ist wichtig.
+\paragraph{System Ressources} Auf Ressourcen in Namespace \verb+System.Windows+ kann man mittels statischer Properties zugegriffen werden. Dazu gehören: \verb+SystemColors+, \verb+SystemFonts+ und \verb+SystemParamters+.
+\begin{lstlisting}[language=xml]
+StaticResource="{StaticResource[name]}"
+\end{lstlisting}
+Die Statische Bindung macht CompileTime Check und findet Fehler früh.
+\begin{lstlisting}[language=xml]
+DynamicResource="{DynamicResource[name]}"
+\end{lstlisting}
+Anstelle von \verb+[name]+ steht der Key der Ressource
+In der Dynamische Bindung wird ein RuntimeCheck gemacht und lässt dynamisch erzeugte und geladene Ressourcen zu. Beim Static Binding wird bei Objektkonstruktion ausgewertet, beim Dynamic Binding einmal pro Zugriff.
+\paragraph{FindResource} Mit der Methode \verb+FrameworkElement.FindResources+  können Zugriffe auf XAML Resourcen gemacht werden.
+\begin{lstlisting}
+var okText = (string)FindResource("OkText");
+var bgBrush = FindResource("DarkBrush") as Brush;
+\end{lstlisting}
